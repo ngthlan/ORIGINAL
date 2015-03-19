@@ -23,19 +23,19 @@ namespace CSELABMAN.VIEW
 
         #region Local Methods
         public void RegisClosing(string apptype)
-        { // nhan tin hieu tat tu form CON : MANBORROW
-            if (apptype.Equals("MANBORROW"))
+        { 
+            if (apptype.Equals("MANBORROW"))                // nhan tin hieu tat tu form CON : MANBORROW
                 openMANBORROW = false;
-            if (apptype.Equals("MANBORROW"))
-                openMANBORROW = false;
+            if (apptype.Equals("MANRETURN"))                // nhan tin hieu tat tu form CON : MANRETURN
+                openMANRETURN = false;
         }
 
         private void VIEWMAN_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                DialogResult result = MessageBox.Show("Bạn thật sự muốn tắt ứng dụng?", "MƯỢN / TRẢ THIẾT BỊ", MessageBoxButtons.AbortRetryIgnore);
-                if (result == DialogResult.Abort)       // neu muon tat thi tat luon ca form CON
+                DialogResult result = MessageBox.Show("Bạn thật sự muốn tắt ứng dụng?", "MƯỢN / TRẢ THIẾT BỊ", MessageBoxButtons.YesNoCancel);
+                if (result == DialogResult.Yes)       // neu muon tat thi tat luon ca form CON
                 {
                     e.Cancel = false;
                     if (openMANBORROW)
@@ -43,7 +43,7 @@ namespace CSELABMAN.VIEW
                     if (openMANRETURN)
                         frmRETURN.exit();
                 }
-                else if (result == DialogResult.Retry)
+                else if (result == DialogResult.No)
                 {                                               // Gui yeu cau tat form CON truoc khi tat form
                     if (!openMANBORROW && !openMANRETURN)     // neu form MANBORROW va MANRETURN da tat thi tat form nay
                         e.Cancel = false;

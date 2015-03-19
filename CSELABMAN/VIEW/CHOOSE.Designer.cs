@@ -35,13 +35,12 @@
             this.groupBox_Type = new System.Windows.Forms.GroupBox();
             this.label_att = new System.Windows.Forms.Label();
             this.comboBox_att = new System.Windows.Forms.ComboBox();
-            this.checkBox_New = new System.Windows.Forms.CheckBox();
             this.textBox_Need = new System.Windows.Forms.TextBox();
             this.label_Need = new System.Windows.Forms.Label();
             this.textBox_Available = new System.Windows.Forms.TextBox();
             this.label_Available = new System.Windows.Forms.Label();
-            this.but_Find = new System.Windows.Forms.Button();
             this.button_start = new System.Windows.Forms.Button();
+            this.textBox_FORM = new System.Windows.Forms.TextBox();
             this.group_STT.SuspendLayout();
             this.groupBox_Type.SuspendLayout();
             this.SuspendLayout();
@@ -69,7 +68,7 @@
             this.group_STT.Controls.Add(this.richtex_sttServer);
             this.group_STT.Location = new System.Drawing.Point(215, 12);
             this.group_STT.Name = "group_STT";
-            this.group_STT.Size = new System.Drawing.Size(197, 92);
+            this.group_STT.Size = new System.Drawing.Size(197, 133);
             this.group_STT.TabIndex = 36;
             this.group_STT.TabStop = false;
             this.group_STT.Text = "TRẠNG THÁI PHẢN HỒI";
@@ -79,7 +78,7 @@
             this.richtex_sttServer.Location = new System.Drawing.Point(23, 19);
             this.richtex_sttServer.Name = "richtex_sttServer";
             this.richtex_sttServer.ReadOnly = true;
-            this.richtex_sttServer.Size = new System.Drawing.Size(153, 60);
+            this.richtex_sttServer.Size = new System.Drawing.Size(153, 103);
             this.richtex_sttServer.TabIndex = 22;
             this.richtex_sttServer.Text = "";
             // 
@@ -87,7 +86,6 @@
             // 
             this.groupBox_Type.Controls.Add(this.label_att);
             this.groupBox_Type.Controls.Add(this.comboBox_att);
-            this.groupBox_Type.Controls.Add(this.checkBox_New);
             this.groupBox_Type.Controls.Add(this.textBox_Need);
             this.groupBox_Type.Controls.Add(this.label_Need);
             this.groupBox_Type.Controls.Add(this.textBox_Available);
@@ -96,7 +94,7 @@
             this.groupBox_Type.Controls.Add(this.cmB_COMport);
             this.groupBox_Type.Location = new System.Drawing.Point(12, 12);
             this.groupBox_Type.Name = "groupBox_Type";
-            this.groupBox_Type.Size = new System.Drawing.Size(197, 153);
+            this.groupBox_Type.Size = new System.Drawing.Size(197, 136);
             this.groupBox_Type.TabIndex = 37;
             this.groupBox_Type.TabStop = false;
             this.groupBox_Type.Text = "THÔNG TIN CẦN THIẾT";
@@ -119,23 +117,10 @@
             this.comboBox_att.Size = new System.Drawing.Size(92, 21);
             this.comboBox_att.TabIndex = 31;
             // 
-            // checkBox_New
-            // 
-            this.checkBox_New.AutoSize = true;
-            this.checkBox_New.Checked = true;
-            this.checkBox_New.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox_New.Location = new System.Drawing.Point(56, 128);
-            this.checkBox_New.Name = "checkBox_New";
-            this.checkBox_New.Size = new System.Drawing.Size(71, 17);
-            this.checkBox_New.TabIndex = 29;
-            this.checkBox_New.Text = "Nhập mới";
-            this.checkBox_New.UseVisualStyleBackColor = true;
-            // 
             // textBox_Need
             // 
             this.textBox_Need.Location = new System.Drawing.Point(127, 102);
             this.textBox_Need.Name = "textBox_Need";
-            this.textBox_Need.ReadOnly = true;
             this.textBox_Need.Size = new System.Drawing.Size(48, 20);
             this.textBox_Need.TabIndex = 28;
             // 
@@ -165,19 +150,9 @@
             this.label_Available.TabIndex = 6;
             this.label_Available.Text = "Số lượng hiện có";
             // 
-            // but_Find
-            // 
-            this.but_Find.Location = new System.Drawing.Point(266, 114);
-            this.but_Find.Name = "but_Find";
-            this.but_Find.Size = new System.Drawing.Size(85, 22);
-            this.but_Find.TabIndex = 38;
-            this.but_Find.Text = "Tìm loại thiết bị";
-            this.but_Find.UseVisualStyleBackColor = true;
-            this.but_Find.Click += new System.EventHandler(this.but_Find_Click);
-            // 
             // button_start
             // 
-            this.button_start.Location = new System.Drawing.Point(238, 143);
+            this.button_start.Location = new System.Drawing.Point(34, 154);
             this.button_start.Name = "button_start";
             this.button_start.Size = new System.Drawing.Size(153, 22);
             this.button_start.TabIndex = 39;
@@ -185,21 +160,32 @@
             this.button_start.UseVisualStyleBackColor = true;
             this.button_start.Click += new System.EventHandler(this.button_start_Click);
             // 
+            // textBox_FORM
+            // 
+            this.textBox_FORM.Location = new System.Drawing.Point(215, 156);
+            this.textBox_FORM.Name = "textBox_FORM";
+            this.textBox_FORM.ReadOnly = true;
+            this.textBox_FORM.Size = new System.Drawing.Size(197, 20);
+            this.textBox_FORM.TabIndex = 44;
+            this.textBox_FORM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // CHOOSE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(430, 198);
+            this.ClientSize = new System.Drawing.Size(430, 183);
+            this.Controls.Add(this.textBox_FORM);
             this.Controls.Add(this.button_start);
-            this.Controls.Add(this.but_Find);
             this.Controls.Add(this.groupBox_Type);
             this.Controls.Add(this.group_STT);
             this.Name = "CHOOSE";
-            this.Text = "CHỌN LOẠI THIẾT BỊ ";
+            this.Text = "LOẠI THIẾT BỊ";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CHOOSE_FormClosing);
             this.group_STT.ResumeLayout(false);
             this.groupBox_Type.ResumeLayout(false);
             this.groupBox_Type.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -214,10 +200,9 @@
         private System.Windows.Forms.TextBox textBox_Need;
         private System.Windows.Forms.Label label_Need;
         private System.Windows.Forms.TextBox textBox_Available;
-        private System.Windows.Forms.CheckBox checkBox_New;
-        private System.Windows.Forms.Button but_Find;
         private System.Windows.Forms.Button button_start;
         private System.Windows.Forms.Label label_att;
         private System.Windows.Forms.ComboBox comboBox_att;
+        private System.Windows.Forms.TextBox textBox_FORM;
     }
 }

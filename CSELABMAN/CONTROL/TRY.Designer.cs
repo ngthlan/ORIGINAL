@@ -1,4 +1,5 @@
-﻿namespace CSELABMAN.CONTROL
+﻿using System;
+namespace CSELABMAN.CONTROL
 {
     partial class TRY
     {
@@ -47,10 +48,10 @@
             this.label_Receive = new System.Windows.Forms.Label();
             this.richTextBox_Receive = new System.Windows.Forms.RichTextBox();
             this.groupBox_COM = new System.Windows.Forms.GroupBox();
+            this.textBox_RFID = new System.Windows.Forms.TextBox();
             this.button_LoadCONF = new System.Windows.Forms.Button();
-            this.button_ResetCOM = new System.Windows.Forms.Button();
+            this.button_ScanCOM = new System.Windows.Forms.Button();
             this.button_SaveCONF = new System.Windows.Forms.Button();
-            this.lb_stt = new System.Windows.Forms.Label();
             this.label_RFID = new System.Windows.Forms.Label();
             this.richTextBox_ResCOM = new System.Windows.Forms.RichTextBox();
             this.label_sttCOM = new System.Windows.Forms.Label();
@@ -64,6 +65,8 @@
             this.cmB_COMport = new System.Windows.Forms.ComboBox();
             this.label_Baud = new System.Windows.Forms.Label();
             this.groupBox_Select = new System.Windows.Forms.GroupBox();
+            this.label_Realtimestt = new System.Windows.Forms.Label();
+            this.label_Realtime = new System.Windows.Forms.Label();
             this.button_ResetCB = new System.Windows.Forms.Button();
             this.richTextBox_CheckBox = new System.Windows.Forms.RichTextBox();
             this.checkBox_DEV = new System.Windows.Forms.CheckBox();
@@ -80,6 +83,7 @@
             this.but_check = new System.Windows.Forms.Button();
             this.label_port = new System.Windows.Forms.Label();
             this.serialPortRFID = new System.IO.Ports.SerialPort(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox_FILE.SuspendLayout();
             this.groupBox_COM.SuspendLayout();
             this.groupBox_Select.SuspendLayout();
@@ -259,10 +263,10 @@
             // 
             // groupBox_COM
             // 
+            this.groupBox_COM.Controls.Add(this.textBox_RFID);
             this.groupBox_COM.Controls.Add(this.button_LoadCONF);
-            this.groupBox_COM.Controls.Add(this.button_ResetCOM);
+            this.groupBox_COM.Controls.Add(this.button_ScanCOM);
             this.groupBox_COM.Controls.Add(this.button_SaveCONF);
-            this.groupBox_COM.Controls.Add(this.lb_stt);
             this.groupBox_COM.Controls.Add(this.label_RFID);
             this.groupBox_COM.Controls.Add(this.richTextBox_ResCOM);
             this.groupBox_COM.Controls.Add(this.label_sttCOM);
@@ -282,6 +286,14 @@
             this.groupBox_COM.TabStop = false;
             this.groupBox_COM.Text = "COM port";
             // 
+            // textBox_RFID
+            // 
+            this.textBox_RFID.Location = new System.Drawing.Point(89, 96);
+            this.textBox_RFID.Name = "textBox_RFID";
+            this.textBox_RFID.ReadOnly = true;
+            this.textBox_RFID.Size = new System.Drawing.Size(70, 20);
+            this.textBox_RFID.TabIndex = 55;
+            // 
             // button_LoadCONF
             // 
             this.button_LoadCONF.BackColor = System.Drawing.SystemColors.Control;
@@ -294,15 +306,15 @@
             this.button_LoadCONF.UseVisualStyleBackColor = false;
             this.button_LoadCONF.Click += new System.EventHandler(this.button_LoadCONF_Click);
             // 
-            // button_ResetCOM
+            // button_ScanCOM
             // 
-            this.button_ResetCOM.Location = new System.Drawing.Point(241, 100);
-            this.button_ResetCOM.Name = "button_ResetCOM";
-            this.button_ResetCOM.Size = new System.Drawing.Size(58, 22);
-            this.button_ResetCOM.TabIndex = 53;
-            this.button_ResetCOM.Text = "Reset";
-            this.button_ResetCOM.UseVisualStyleBackColor = true;
-            this.button_ResetCOM.Click += new System.EventHandler(this.button_ResetCOM_Click);
+            this.button_ScanCOM.Location = new System.Drawing.Point(241, 100);
+            this.button_ScanCOM.Name = "button_ScanCOM";
+            this.button_ScanCOM.Size = new System.Drawing.Size(58, 22);
+            this.button_ScanCOM.TabIndex = 53;
+            this.button_ScanCOM.Text = "Scan";
+            this.button_ScanCOM.UseVisualStyleBackColor = true;
+            this.button_ScanCOM.Click += new System.EventHandler(this.button_ScanCOM_Click);
             // 
             // button_SaveCONF
             // 
@@ -315,15 +327,6 @@
             this.button_SaveCONF.Text = "Save";
             this.button_SaveCONF.UseVisualStyleBackColor = false;
             this.button_SaveCONF.Click += new System.EventHandler(this.button_SaveCONF_Click);
-            // 
-            // lb_stt
-            // 
-            this.lb_stt.AutoSize = true;
-            this.lb_stt.Location = new System.Drawing.Point(84, 99);
-            this.lb_stt.Name = "lb_stt";
-            this.lb_stt.Size = new System.Drawing.Size(62, 13);
-            this.lb_stt.TabIndex = 52;
-            this.lb_stt.Text = "RFID_code";
             // 
             // label_RFID
             // 
@@ -436,6 +439,8 @@
             // 
             // groupBox_Select
             // 
+            this.groupBox_Select.Controls.Add(this.label_Realtimestt);
+            this.groupBox_Select.Controls.Add(this.label_Realtime);
             this.groupBox_Select.Controls.Add(this.button_ResetCB);
             this.groupBox_Select.Controls.Add(this.richTextBox_CheckBox);
             this.groupBox_Select.Controls.Add(this.checkBox_DEV);
@@ -444,7 +449,25 @@
             this.groupBox_Select.Size = new System.Drawing.Size(327, 198);
             this.groupBox_Select.TabIndex = 37;
             this.groupBox_Select.TabStop = false;
-            this.groupBox_Select.Text = "SELECT";
+            this.groupBox_Select.Text = "SELECT and TIMER";
+            // 
+            // label_Realtimestt
+            // 
+            this.label_Realtimestt.AutoSize = true;
+            this.label_Realtimestt.Location = new System.Drawing.Point(143, 31);
+            this.label_Realtimestt.Name = "label_Realtimestt";
+            this.label_Realtimestt.Size = new System.Drawing.Size(110, 13);
+            this.label_Realtimestt.TabIndex = 50;
+            this.label_Realtimestt.Text = "03/19/2015 12:10:17";
+            // 
+            // label_Realtime
+            // 
+            this.label_Realtime.AutoSize = true;
+            this.label_Realtime.Location = new System.Drawing.Point(49, 31);
+            this.label_Realtime.Name = "label_Realtime";
+            this.label_Realtime.Size = new System.Drawing.Size(88, 13);
+            this.label_Realtime.TabIndex = 49;
+            this.label_Realtime.Text = "Thời gian hiện tại";
             // 
             // button_ResetCB
             // 
@@ -601,6 +624,12 @@
             this.serialPortRFID.PortName = "COM4";
             this.serialPortRFID.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPortRFID_DataReceived);
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // TRY
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -672,10 +701,13 @@
         private System.Windows.Forms.Label label_sttCOM;
         private System.Windows.Forms.TextBox textBox_sttCOM;
         private System.IO.Ports.SerialPort serialPortRFID;
-        private System.Windows.Forms.Label lb_stt;
         private System.Windows.Forms.Label label_RFID;
         private System.Windows.Forms.Button button_SaveCONF;
-        private System.Windows.Forms.Button button_ResetCOM;
+        private System.Windows.Forms.Button button_ScanCOM;
         private System.Windows.Forms.Button button_LoadCONF;
+        private System.Windows.Forms.Label label_Realtimestt;
+        private System.Windows.Forms.Label label_Realtime;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TextBox textBox_RFID;
     }
 }

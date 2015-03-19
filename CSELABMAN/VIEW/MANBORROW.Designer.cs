@@ -28,12 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.cmbStopBits = new System.Windows.Forms.ComboBox();
+            this.cmbDataBits = new System.Windows.Forms.ComboBox();
             this.group_STT = new System.Windows.Forms.GroupBox();
             this.textBox_sttCOM = new System.Windows.Forms.TextBox();
             this.label_sttServer = new System.Windows.Forms.Label();
             this.richtex_sttServer = new System.Windows.Forms.RichTextBox();
             this.label_sttCOM = new System.Windows.Forms.Label();
             this.group_SETTINGS = new System.Windows.Forms.GroupBox();
+            this.but_OpenPort = new System.Windows.Forms.Button();
             this.cmB_Parity = new System.Windows.Forms.ComboBox();
             this.label_Parity = new System.Windows.Forms.Label();
             this.cmB_Baud = new System.Windows.Forms.ComboBox();
@@ -44,9 +48,8 @@
             this.label_UserName = new System.Windows.Forms.Label();
             this.textBox_UserName = new System.Windows.Forms.TextBox();
             this.groupBox_USER = new System.Windows.Forms.GroupBox();
-            this.textBox_RFIDUser = new System.Windows.Forms.TextBox();
             this.but_checkUSER = new System.Windows.Forms.Button();
-            this.but_OpenPort = new System.Windows.Forms.Button();
+            this.textBox_RFIDUser = new System.Windows.Forms.TextBox();
             this.groupBox_DEV = new System.Windows.Forms.GroupBox();
             this.textBox_RFIDDEV = new System.Windows.Forms.TextBox();
             this.textBox_DEVName = new System.Windows.Forms.TextBox();
@@ -57,11 +60,27 @@
             this.button_Borrow = new System.Windows.Forms.Button();
             this.button_Cancel = new System.Windows.Forms.Button();
             this.button_OK = new System.Windows.Forms.Button();
+            this.button_ScanCOM = new System.Windows.Forms.Button();
+            this.serialPortRFID = new System.IO.Ports.SerialPort(this.components);
             this.group_STT.SuspendLayout();
             this.group_SETTINGS.SuspendLayout();
             this.groupBox_USER.SuspendLayout();
             this.groupBox_DEV.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // cmbStopBits
+            // 
+            this.cmbStopBits.Location = new System.Drawing.Point(0, 0);
+            this.cmbStopBits.Name = "cmbStopBits";
+            this.cmbStopBits.Size = new System.Drawing.Size(121, 21);
+            this.cmbStopBits.TabIndex = 0;
+            // 
+            // cmbDataBits
+            // 
+            this.cmbDataBits.Location = new System.Drawing.Point(0, 0);
+            this.cmbDataBits.Name = "cmbDataBits";
+            this.cmbDataBits.Size = new System.Drawing.Size(121, 21);
+            this.cmbDataBits.TabIndex = 0;
             // 
             // group_STT
             // 
@@ -113,6 +132,7 @@
             // 
             // group_SETTINGS
             // 
+            this.group_SETTINGS.Controls.Add(this.button_ScanCOM);
             this.group_SETTINGS.Controls.Add(this.but_OpenPort);
             this.group_SETTINGS.Controls.Add(this.cmB_Parity);
             this.group_SETTINGS.Controls.Add(this.label_Parity);
@@ -126,6 +146,16 @@
             this.group_SETTINGS.TabIndex = 36;
             this.group_SETTINGS.TabStop = false;
             this.group_SETTINGS.Text = "THIẾT LẬP CỔNG COM";
+            // 
+            // but_OpenPort
+            // 
+            this.but_OpenPort.Location = new System.Drawing.Point(106, 97);
+            this.but_OpenPort.Name = "but_OpenPort";
+            this.but_OpenPort.Size = new System.Drawing.Size(71, 22);
+            this.but_OpenPort.TabIndex = 26;
+            this.but_OpenPort.Text = "Open Port";
+            this.but_OpenPort.UseVisualStyleBackColor = true;
+            this.but_OpenPort.Click += new System.EventHandler(this.but_OpenPort_Click);
             // 
             // cmB_Parity
             // 
@@ -231,13 +261,6 @@
             this.groupBox_USER.TabStop = false;
             this.groupBox_USER.Text = "THÔNG TIN NGƯỜI DÙNG";
             // 
-            // textBox_RFIDUser
-            // 
-            this.textBox_RFIDUser.Location = new System.Drawing.Point(95, 18);
-            this.textBox_RFIDUser.Name = "textBox_RFIDUser";
-            this.textBox_RFIDUser.Size = new System.Drawing.Size(82, 20);
-            this.textBox_RFIDUser.TabIndex = 44;
-            // 
             // but_checkUSER
             // 
             this.but_checkUSER.Location = new System.Drawing.Point(60, 76);
@@ -248,15 +271,12 @@
             this.but_checkUSER.UseVisualStyleBackColor = true;
             this.but_checkUSER.Click += new System.EventHandler(this.but_checkUSER_Click);
             // 
-            // but_OpenPort
+            // textBox_RFIDUser
             // 
-            this.but_OpenPort.Location = new System.Drawing.Point(85, 97);
-            this.but_OpenPort.Name = "but_OpenPort";
-            this.but_OpenPort.Size = new System.Drawing.Size(71, 22);
-            this.but_OpenPort.TabIndex = 26;
-            this.but_OpenPort.Text = "Open Port";
-            this.but_OpenPort.UseVisualStyleBackColor = true;
-            this.but_OpenPort.Click += new System.EventHandler(this.but_OpenPort_Click);
+            this.textBox_RFIDUser.Location = new System.Drawing.Point(95, 18);
+            this.textBox_RFIDUser.Name = "textBox_RFIDUser";
+            this.textBox_RFIDUser.Size = new System.Drawing.Size(82, 20);
+            this.textBox_RFIDUser.TabIndex = 44;
             // 
             // groupBox_DEV
             // 
@@ -356,6 +376,21 @@
             this.button_OK.Text = "ĐÓNG PHIÊN";
             this.button_OK.UseVisualStyleBackColor = true;
             // 
+            // button_ScanCOM
+            // 
+            this.button_ScanCOM.Location = new System.Drawing.Point(25, 97);
+            this.button_ScanCOM.Name = "button_ScanCOM";
+            this.button_ScanCOM.Size = new System.Drawing.Size(58, 22);
+            this.button_ScanCOM.TabIndex = 56;
+            this.button_ScanCOM.Text = "Scan";
+            this.button_ScanCOM.UseVisualStyleBackColor = true;
+            this.button_ScanCOM.Click += new System.EventHandler(this.button_ScanCOM_Click);
+            // 
+            // serialPortRFID
+            // 
+            this.serialPortRFID.PortName = "COM4";
+            this.serialPortRFID.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPortRFID_DataReceived);
+            // 
             // MANBORROW
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -372,6 +407,7 @@
             this.Controls.Add(this.group_SETTINGS);
             this.Name = "MANBORROW";
             this.Text = "MƯỢN THIẾT BỊ";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MANBORROW_FormClosing);
             this.group_STT.ResumeLayout(false);
             this.group_STT.PerformLayout();
             this.group_SETTINGS.ResumeLayout(false);
@@ -387,6 +423,8 @@
 
         #endregion
 
+        private System.Windows.Forms.ComboBox cmbStopBits;
+        private System.Windows.Forms.ComboBox cmbDataBits;
         private System.Windows.Forms.GroupBox group_STT;
         private System.Windows.Forms.TextBox textBox_sttCOM;
         private System.Windows.Forms.Label label_sttServer;
@@ -416,5 +454,7 @@
         private System.Windows.Forms.Button button_Borrow;
         private System.Windows.Forms.Button button_Cancel;
         private System.Windows.Forms.Button button_OK;
+        private System.Windows.Forms.Button button_ScanCOM;
+        private System.IO.Ports.SerialPort serialPortRFID;
     }
 }

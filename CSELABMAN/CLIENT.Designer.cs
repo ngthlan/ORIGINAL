@@ -1,4 +1,5 @@
-﻿namespace CSELABMAN
+﻿using System;
+namespace CSELABMAN
 {
     partial class CLIENT
     {
@@ -28,6 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CLIENT));
             this.button_try = new System.Windows.Forms.Button();
             this.button_Detail = new System.Windows.Forms.Button();
@@ -35,6 +37,10 @@
             this.button_but_CONFIG = new System.Windows.Forms.Button();
             this.button_DEVICE = new System.Windows.Forms.Button();
             this.button_USER = new System.Windows.Forms.Button();
+            this.label_timeupdate = new System.Windows.Forms.Label();
+            this.label_Realtime = new System.Windows.Forms.Label();
+            this.label_Realtimestt = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // button_try
@@ -43,7 +49,7 @@
             this.button_try.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.button_try.Image = global::CSELABMAN.Properties.Resources._try;
             this.button_try.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button_try.Location = new System.Drawing.Point(229, 173);
+            this.button_try.Location = new System.Drawing.Point(229, 198);
             this.button_try.Name = "button_try";
             this.button_try.Size = new System.Drawing.Size(211, 155);
             this.button_try.TabIndex = 29;
@@ -58,7 +64,7 @@
             this.button_Detail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.button_Detail.Image = global::CSELABMAN.Properties.Resources.about;
             this.button_Detail.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button_Detail.Location = new System.Drawing.Point(446, 173);
+            this.button_Detail.Location = new System.Drawing.Point(446, 198);
             this.button_Detail.Name = "button_Detail";
             this.button_Detail.Size = new System.Drawing.Size(211, 154);
             this.button_Detail.TabIndex = 28;
@@ -74,7 +80,7 @@
             this.button_BORROW_RETURN.ForeColor = System.Drawing.SystemColors.ControlText;
             this.button_BORROW_RETURN.Image = ((System.Drawing.Image)(resources.GetObject("button_BORROW_RETURN.Image")));
             this.button_BORROW_RETURN.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button_BORROW_RETURN.Location = new System.Drawing.Point(446, 12);
+            this.button_BORROW_RETURN.Location = new System.Drawing.Point(446, 37);
             this.button_BORROW_RETURN.Name = "button_BORROW_RETURN";
             this.button_BORROW_RETURN.Size = new System.Drawing.Size(211, 154);
             this.button_BORROW_RETURN.TabIndex = 7;
@@ -90,11 +96,11 @@
             this.button_but_CONFIG.ForeColor = System.Drawing.SystemColors.ControlText;
             this.button_but_CONFIG.Image = global::CSELABMAN.Properties.Resources.but_CONFIG;
             this.button_but_CONFIG.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button_but_CONFIG.Location = new System.Drawing.Point(12, 173);
+            this.button_but_CONFIG.Location = new System.Drawing.Point(12, 198);
             this.button_but_CONFIG.Name = "button_but_CONFIG";
             this.button_but_CONFIG.Size = new System.Drawing.Size(211, 154);
             this.button_but_CONFIG.TabIndex = 6;
-            this.button_but_CONFIG.Text = "KIỂM TRA SERVER";
+            this.button_but_CONFIG.Text = "THIẾT LẬP MÁY CHỦ";
             this.button_but_CONFIG.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.button_but_CONFIG.UseVisualStyleBackColor = false;
             this.button_but_CONFIG.Click += new System.EventHandler(this.button_Connect_Click);
@@ -106,7 +112,7 @@
             this.button_DEVICE.ForeColor = System.Drawing.SystemColors.ControlText;
             this.button_DEVICE.Image = ((System.Drawing.Image)(resources.GetObject("button_DEVICE.Image")));
             this.button_DEVICE.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button_DEVICE.Location = new System.Drawing.Point(229, 12);
+            this.button_DEVICE.Location = new System.Drawing.Point(229, 37);
             this.button_DEVICE.Name = "button_DEVICE";
             this.button_DEVICE.Size = new System.Drawing.Size(211, 155);
             this.button_DEVICE.TabIndex = 2;
@@ -122,7 +128,7 @@
             this.button_USER.ForeColor = System.Drawing.SystemColors.ControlText;
             this.button_USER.Image = ((System.Drawing.Image)(resources.GetObject("button_USER.Image")));
             this.button_USER.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button_USER.Location = new System.Drawing.Point(12, 12);
+            this.button_USER.Location = new System.Drawing.Point(12, 37);
             this.button_USER.Name = "button_USER";
             this.button_USER.Size = new System.Drawing.Size(211, 155);
             this.button_USER.TabIndex = 1;
@@ -131,11 +137,47 @@
             this.button_USER.UseVisualStyleBackColor = false;
             this.button_USER.Click += new System.EventHandler(this.button_USER_Click);
             // 
+            // label_timeupdate
+            // 
+            this.label_timeupdate.AutoSize = true;
+            this.label_timeupdate.Location = new System.Drawing.Point(451, 9);
+            this.label_timeupdate.Name = "label_timeupdate";
+            this.label_timeupdate.Size = new System.Drawing.Size(205, 13);
+            this.label_timeupdate.TabIndex = 30;
+            this.label_timeupdate.Text = "Cập nhật mới nhất : 03/19/2015 16:30:00";
+            // 
+            // label_Realtime
+            // 
+            this.label_Realtime.AutoSize = true;
+            this.label_Realtime.Location = new System.Drawing.Point(9, 9);
+            this.label_Realtime.Name = "label_Realtime";
+            this.label_Realtime.Size = new System.Drawing.Size(100, 13);
+            this.label_Realtime.TabIndex = 31;
+            this.label_Realtime.Text = "Thời gian hiện tại  : ";
+            // 
+            // label_Realtimestt
+            // 
+            this.label_Realtimestt.AutoSize = true;
+            this.label_Realtimestt.Location = new System.Drawing.Point(103, 9);
+            this.label_Realtimestt.Name = "label_Realtimestt";
+            this.label_Realtimestt.Size = new System.Drawing.Size(110, 13);
+            this.label_Realtimestt.TabIndex = 32;
+            this.label_Realtimestt.Text = "03/18/2015 18:26:58";
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // CLIENT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(668, 335);
+            this.ClientSize = new System.Drawing.Size(668, 364);
+            this.Controls.Add(this.label_Realtimestt);
+            this.Controls.Add(this.label_Realtime);
+            this.Controls.Add(this.label_timeupdate);
             this.Controls.Add(this.button_try);
             this.Controls.Add(this.button_Detail);
             this.Controls.Add(this.button_BORROW_RETURN);
@@ -146,6 +188,7 @@
             this.Text = "QUẢN LÝ THẺ RFID - PHÒNG THÍ NGHIỆM KỸ THUẬT MÁY TÍNH";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CLIEN_FormClosing);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -157,6 +200,10 @@
         private System.Windows.Forms.Button button_BORROW_RETURN;
         private System.Windows.Forms.Button button_try; 
         private System.Windows.Forms.Button button_Detail;
+        private System.Windows.Forms.Label label_timeupdate;
+        private System.Windows.Forms.Label label_Realtime;
+        private System.Windows.Forms.Label label_Realtimestt;
+        private System.Windows.Forms.Timer timer1;
         
     }
 }

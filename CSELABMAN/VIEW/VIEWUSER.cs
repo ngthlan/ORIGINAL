@@ -22,20 +22,20 @@ namespace CSELABMAN.VIEW
         bool openUSEREDIT = false;
 
         #region Local Methods
-        public void RegisClosing(string apptype)
-        { // nhan tin hieu tat tu form CON : USERREGIS
+        public void RegisClosing(string apptype, bool newstt)
+        { // nhan tin hieu tat tu form CON 
             if (apptype.Equals("USERREGIS"))
-                openUSERREGIS = false;
+                openUSERREGIS = newstt;
             if (apptype.Equals("USEREDIT"))
-                openUSEREDIT = false;
+                openUSEREDIT = newstt;
         }
 
         private void VIEWUSER_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                DialogResult result = MessageBox.Show("Bạn thật sự muốn tắt ứng dụng?", "QUẢN LÝ NGƯỜI DÙNG", MessageBoxButtons.AbortRetryIgnore);
-                if (result == DialogResult.Abort)       // neu muon tat thi tat luon ca form CON
+                DialogResult result = MessageBox.Show("Bạn thật sự muốn tắt ứng dụng?", "QUẢN LÝ NGƯỜI DÙNG", MessageBoxButtons.YesNoCancel);
+                if (result == DialogResult.Yes)       // neu muon tat thi tat luon ca form CON
                 {
                     e.Cancel = false;
                     if (openUSERREGIS)
@@ -43,7 +43,7 @@ namespace CSELABMAN.VIEW
                     if (openUSEREDIT)
                         frmEDIT.exit();
                 }
-                else if (result == DialogResult.Retry)
+                else if (result == DialogResult.No)
                 {                                               // Gui yeu cau tat form CON truoc khi tat form
                     if (!openUSERREGIS && !openUSEREDIT)     // neu form USERREGIS va USEREDIT da tat thi tat form nay
                         e.Cancel = false;

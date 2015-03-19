@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.cmbStopBits = new System.Windows.Forms.ComboBox();
+            this.cmbDataBits = new System.Windows.Forms.ComboBox();
             this.group_STT = new System.Windows.Forms.GroupBox();
             this.textBox_sttCOM = new System.Windows.Forms.TextBox();
             this.label_sttServer = new System.Windows.Forms.Label();
@@ -56,11 +59,27 @@
             this.checkBox_User = new System.Windows.Forms.CheckBox();
             this.button_Return = new System.Windows.Forms.Button();
             this.button_OK = new System.Windows.Forms.Button();
+            this.serialPortRFID = new System.IO.Ports.SerialPort(this.components);
+            this.button_ScanCOM = new System.Windows.Forms.Button();
             this.group_STT.SuspendLayout();
             this.group_SETTINGS.SuspendLayout();
             this.groupBox_USER.SuspendLayout();
             this.groupBox_DEV.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // cmbStopBits
+            // 
+            this.cmbStopBits.Location = new System.Drawing.Point(0, 0);
+            this.cmbStopBits.Name = "cmbStopBits";
+            this.cmbStopBits.Size = new System.Drawing.Size(121, 21);
+            this.cmbStopBits.TabIndex = 0;
+            // 
+            // cmbDataBits
+            // 
+            this.cmbDataBits.Location = new System.Drawing.Point(0, 0);
+            this.cmbDataBits.Name = "cmbDataBits";
+            this.cmbDataBits.Size = new System.Drawing.Size(121, 21);
+            this.cmbDataBits.TabIndex = 0;
             // 
             // group_STT
             // 
@@ -112,6 +131,7 @@
             // 
             // group_SETTINGS
             // 
+            this.group_SETTINGS.Controls.Add(this.button_ScanCOM);
             this.group_SETTINGS.Controls.Add(this.but_OpenPort);
             this.group_SETTINGS.Controls.Add(this.cmB_Parity);
             this.group_SETTINGS.Controls.Add(this.label_Parity);
@@ -128,7 +148,7 @@
             // 
             // but_OpenPort
             // 
-            this.but_OpenPort.Location = new System.Drawing.Point(85, 97);
+            this.but_OpenPort.Location = new System.Drawing.Point(102, 97);
             this.but_OpenPort.Name = "but_OpenPort";
             this.but_OpenPort.Size = new System.Drawing.Size(71, 22);
             this.but_OpenPort.TabIndex = 26;
@@ -346,6 +366,21 @@
             this.button_OK.Text = "ĐÓNG PHIÊN";
             this.button_OK.UseVisualStyleBackColor = true;
             // 
+            // serialPortRFID
+            // 
+            this.serialPortRFID.PortName = "COM4";
+            this.serialPortRFID.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPortRFID_DataReceived);
+            // 
+            // button_ScanCOM
+            // 
+            this.button_ScanCOM.Location = new System.Drawing.Point(25, 98);
+            this.button_ScanCOM.Name = "button_ScanCOM";
+            this.button_ScanCOM.Size = new System.Drawing.Size(58, 22);
+            this.button_ScanCOM.TabIndex = 57;
+            this.button_ScanCOM.Text = "Scan";
+            this.button_ScanCOM.UseVisualStyleBackColor = true;
+            this.button_ScanCOM.Click += new System.EventHandler(this.button_ScanCOM_Click);
+            // 
             // MANRETURN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -361,6 +396,7 @@
             this.Controls.Add(this.group_SETTINGS);
             this.Name = "MANRETURN";
             this.Text = "TRẢ THIẾT BỊ";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MANRETURN_FormClosing);
             this.group_STT.ResumeLayout(false);
             this.group_STT.PerformLayout();
             this.group_SETTINGS.ResumeLayout(false);
@@ -376,6 +412,8 @@
 
         #endregion
 
+        private System.Windows.Forms.ComboBox cmbStopBits;
+        private System.Windows.Forms.ComboBox cmbDataBits;
         private System.Windows.Forms.GroupBox group_STT;
         private System.Windows.Forms.TextBox textBox_sttCOM;
         private System.Windows.Forms.Label label_sttServer;
@@ -404,5 +442,7 @@
         private System.Windows.Forms.CheckBox checkBox_User;
         private System.Windows.Forms.Button button_Return;
         private System.Windows.Forms.Button button_OK;
+        private System.IO.Ports.SerialPort serialPortRFID;
+        private System.Windows.Forms.Button button_ScanCOM;
     }
 }

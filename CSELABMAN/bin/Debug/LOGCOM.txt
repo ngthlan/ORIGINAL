@@ -1,0 +1,11 @@
+SerialPort CONFIGURATION : 3/18/2015 1:38:33 PM
+COMport:COM6
+Baud:9600
+Parity:None
+
+SerialPort CONFIGURATION : 3/18/2015 4:48:53 PM
+COMport:COM7
+Baud:9600
+Parity:None
+
+

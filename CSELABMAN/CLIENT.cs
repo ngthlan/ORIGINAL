@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace CSELABMAN
@@ -16,6 +17,7 @@ namespace CSELABMAN
         public string address = null;                                   // dia chi may chu
         public bool ckcadd = false;                                     // kiem tra dia chi may chu
         string apptype = null;
+        
         
         public CLIENT()
         {
@@ -66,7 +68,7 @@ namespace CSELABMAN
         private void button_USER_Click(object sender, EventArgs e)
         {
             if (!ckcadd)
-                MessageBox.Show(this, "Vui lòng kết nối server trước khi thao tác", "LỖI THIẾT LẬP", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, "Vui lòng \"THIẾT LẬP MÁY CHỦ\" trước khi thao tác", "LỖI THIẾT LẬP", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else
             {
                 VIEW.VIEWUSER frmUSER = new VIEW.VIEWUSER();
@@ -83,7 +85,7 @@ namespace CSELABMAN
         private void button_DEVICE_Click(object sender, EventArgs e)
         {
             if (!ckcadd)
-                MessageBox.Show(this, "Vui lòng kết nối server trước khi thao tác", "LỖI THIẾT LẬP", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, "Vui lòng \"THIẾT LẬP MÁY CHỦ\" trước khi thao tác", "LỖI THIẾT LẬP", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else
             {
                 VIEW.VIEWDEV frmDEV = new VIEW.VIEWDEV();
@@ -102,7 +104,7 @@ namespace CSELABMAN
         {
             
             if (!ckcadd)
-                MessageBox.Show(this, "Vui lòng kết nối server trước khi thao tác", "LỖI THIẾT LẬP", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, "Vui lòng \"THIẾT LẬP MÁY CHỦ\" trước khi thao tác", "LỖI THIẾT LẬP", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else
             {
                 VIEW.VIEWMAN frmMAN = new VIEW.VIEWMAN();
@@ -116,5 +118,14 @@ namespace CSELABMAN
             frmTRY.Show();
         }
         #endregion Button Clicks
+
+        #region Events
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            label_Realtimestt.Text = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
+        }
+        
+        #endregion Events
+
     }
 }

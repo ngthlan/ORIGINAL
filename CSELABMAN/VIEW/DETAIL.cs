@@ -51,7 +51,7 @@ namespace CSELABMAN.VIEW
         private void button_Ver_Click(object sender, EventArgs e)
         {
             richText_Stt.Text = "\n\nTên phần mềm : \"QUẢN LÝ THẺ RFID - PHÒNG THÍ NGHIỆM KỸ THUẬT MÁY TÍNH\"" +
-                                "\n\n Phiên bản : Version 1.1.0.0"+
+                                "\n\n Phiên bản : Version 1.1.1.0"+
                                 "\n\n Tác giả : Nguyễn Thế Lân - Nguyễn Lê Khôi"+
                                 "\n\n Bản quyền thuộc về bộ môn KĨ THUẬT MÁY TÍNH, khoa KHOA HỌC VÀ KĨ THUẬT MÁY TÍNH, trường Đại học Bách Khoa TPHCM"+
                                 "\n\n \t \tCopyright by \u00a9 NTL 2015";

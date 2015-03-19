@@ -8,6 +8,7 @@ using System.Net;
 using System.IO;
 using System.IO.Ports;
 using System.Text;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace CSELABMAN.CONTROL
@@ -16,13 +17,26 @@ namespace CSELABMAN.CONTROL
     {
         Services services = new Services();                     // dich vu ho tro
         public string resFirst = null;
+
+        bool exist;
         public TRY()
         {
             InitializeComponent();
             services.Local.InitializeControlValues(ref settings,ref cmB_COMport, ref cmB_Baud, ref cmB_Parity,
                                                     ref cmbDataBits,ref cmbStopBits,ref serialPortRFID,
-                                                    ref errorCOM,ref errorCONN,ref resFirst);
+                                                    ref errorCOM,ref errorCONN,ref resFirst, ref exist);
             textBox_sttCOM.Text = resFirst;
+            textBox_sttCOM.TextAlign = HorizontalAlignment.Center;
+            System.Timers.Timer timer1 = new System.Timers.Timer() ;
+            timer1.Enabled = true;
+            timer1.Interval = 1000;
+            timer1.Start();
+            timer1.Elapsed += new System.Timers.ElapsedEventHandler(Timer_Elapsed);
+        }
+
+        private void Timer_Elapsed(object sender, EventArgs e)
+        {
+            label_Realtimestt.Text = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
         }
 
         string mypath = null;                                   // ten path de luu file html response
@@ -61,7 +75,7 @@ namespace CSELABMAN.CONTROL
             // calling thread to the thread ID of the creating thread.
             // If these threads are different, it returns true.
 
-            if (this.lb_stt.InvokeRequired)
+            if (this.textBox_RFID.InvokeRequired)
             {
                 SetTextCallback d = new SetTextCallback(SetText);
                 this.Invoke(d, new object[] { text });
@@ -75,7 +89,7 @@ namespace CSELABMAN.CONTROL
                 //Console.WriteLine("temp is : "+temp);
                 txt_D = services.Local.CharArrayToString(temp);
                 //Console.WriteLine("RFID is : " + txt_D);
-                lb_stt.Text = txt_D;
+                textBox_RFID.Text = txt_D;
                 if (txt_S.Length > maxlength)
                 {
                     txt_S = "";
@@ -84,7 +98,7 @@ namespace CSELABMAN.CONTROL
                 }
                 string mydocpath = @"C:\USERs\Public\Documents\";
                 string mypath = mydocpath + @"CSELAB.txt";
-                services.Local.writetofile(lb_stt.Text, mypath);
+                services.Local.writetofile(textBox_RFID.Text, mypath);
             }
         }
         
@@ -375,175 +389,35 @@ namespace CSELABMAN.CONTROL
         {
             // Change the state of the form's controls
             // If the port is open, send focus to the send data box
-            bool error = false;
-
-            if (errorCOM)
-            {
-                services.Local.InitializeControlValues(ref settings, ref cmB_COMport, ref cmB_Baud, ref cmB_Parity,
-                                                    ref cmbDataBits, ref cmbStopBits, ref serialPortRFID,
-                                                    ref errorCOM, ref errorCONN, ref resFirst);
-                if (errorCOM)
-                {
-                    //textBox_sttCOM.SelectionAlignment = HorizontalAlignment.Center;
-                    textBox_sttCOM.Text = "No COMport!";
-                    cmB_COMport.Items.Clear();
-                    cmB_Baud.Items.Clear();
-                    cmB_Parity.Items.Clear();
-                    cmB_COMport.Items.AddRange(new Object[] { });
-                    cmB_Baud.Items.AddRange(new Object[] { });
-                    cmB_Parity.Items.AddRange(new Object[] { });
-                    MessageBox.Show(this, "Please insert device", "ERROR DEVICE", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    Console.WriteLine("no COM!");
-                }
-                else
-                {
-                    cmB_Baud.Items.AddRange(new object[] {
-                        "300",
-                        "600",
-                        "1200",
-                        "2400",
-                        "4800",
-                        "9600",
-                        "14400",
-                        "28800",
-                        "36000",
-                        "115000"});
-                    /*cmB_Parity.Items.AddRange(new object[] {
-                        "NONE",
-                        "EVEN",
-                        "ODD"});*/
-                    textBox_sttCOM.Text = "";
-                }
-            }
-            else if (errorCONN)
-            {
-                errorCONN = false;
-                MessageBox.Show(this, "Could not open the COM port.\n Please turn off another device", "ERROR CONNECTION", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else if ((cmB_Parity.Text == "") || (cmB_Baud.Text == ""))
-            {
-                error = true;
-                services.Local.InitializeControlValues(ref settings, ref cmB_COMport, ref cmB_Baud, ref cmB_Parity,
-                                                    ref cmbDataBits, ref cmbStopBits, ref serialPortRFID,
-                                                    ref errorCOM, ref errorCONN, ref resFirst);
-                if (!errorCOM)
-                {
-                    MessageBox.Show(this, "None parameter! \nPlease select available options!", "COM Port Unavalible", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    /*cmB_Baud.Items.AddRange(new object[] {
-                        "300",
-                        "600",
-                        "1200",
-                        "2400",
-                        "4800",
-                        "9600",
-                        "14400",
-                        "28800",
-                        "36000",
-                        "115000"});*/
-                }
-                else
-                {
-                    //textBox_sttCOM.SelectionAlignment = HorizontalAlignment.Center;
-                    textBox_sttCOM.Text = "No COMport!";
-                    cmB_COMport.Items.Clear(); cmB_COMport.Items.AddRange(new Object[] {" "});
-                    cmB_Baud.Items.Clear(); cmB_Baud.Items.AddRange(new Object[] {" "});
-                    cmB_Parity.Items.Clear(); cmB_Parity.Items.AddRange(new Object[] {" "});
-                    MessageBox.Show(this, "Please insert device", "ERROR DEVICE", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    Console.WriteLine("no COM!");
-                }
-            }
-            else
-            {
-                // If the port is open, close it.
-                if (serialPortRFID.IsOpen)
-                {
-                    try
-                    {
-                        serialPortRFID.Close();
-                        but_OpenPort.BackColor = System.Drawing.Color.AliceBlue;
-                    }
-                    catch (UnauthorizedAccessException)
-                    {
-                        errorCONN = true;
-                        MessageBox.Show(this, "Could not open the COM port.\n Please turn off another device", "ERROR CONNECTION", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    cmB_COMport.Enabled = true;
-                    cmB_Baud.Enabled = true;
-                    cmB_Parity.Enabled = true;
-                    lb_stt.Text = "RFID_code";
-                    but_OpenPort.Text = "Open port";
-                    //textBox_sttCOM.SelectionAlignment = HorizontalAlignment.Center;
-                    textBox_sttCOM.Text = "COMPort is Closed!";
-
-                    //Console.WriteLine("COMport is closed ...");
-                }
-                else
-                {
-                    try
-                    {
-                        // Set the port's settings
-                        serialPortRFID.BaudRate = int.Parse(cmB_Baud.Text);
-                        serialPortRFID.DataBits = int.Parse(cmbDataBits.Text);
-                        serialPortRFID.StopBits = (StopBits)Enum.Parse(typeof(StopBits), cmbStopBits.Text);
-                        serialPortRFID.Parity = (Parity)Enum.Parse(typeof(Parity), cmB_Parity.Text);
-                        serialPortRFID.PortName = cmB_COMport.Text;
-
-                        // Open the port
-                        serialPortRFID.Open();
-                    }
-
-                    catch (UnauthorizedAccessException) { error = true; errorCONN = true; }
-                    catch (IOException) { error = true; errorCOM = true; }
-                    catch (ArgumentException) { error = true; }
-
-                    if (errorCOM)
-                    {
-                        but_OpenPort.Text = "Open port";
-                        //textBox_sttCOM.SelectionAlignment = HorizontalAlignment.Center;
-                        textBox_sttCOM.Text = "No COMport!";
-
-                        cmB_COMport.Items.Clear();
-                        cmB_Baud.Items.Clear();
-                        cmB_Parity.Items.Clear();
-                        cmB_COMport.Items.AddRange(new Object[] {" "});
-                        cmB_Baud.Items.AddRange(new Object[] {" "});
-                        cmB_Parity.Items.AddRange(new Object[] {" "});
-                        MessageBox.Show(this, "Please insert device", "ERROR DEVICE", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        serialPortRFID.Close();
-                    }
-                    else if (errorCONN)
-                    {
-                        errorCONN = false;
-                        MessageBox.Show(this, "Could not open the COM port.\n Please turn off another device", "ERROR CONNECTION", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else if (error)
-                    {
-                        but_OpenPort.Text = "Open port";
-                        //textBox_sttCOM.SelectionAlignment = HorizontalAlignment.Center;
-                        textBox_sttCOM.Text = "COMPort is Closed!";
-                        MessageBox.Show(this, "Could not open the COM port.  Most likely it is already in use, has been removed, or is unavailable.", "COM Port Unavalible", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                        serialPortRFID.Close();
-                    }
-                    /*else
-                {
-                    // Show the initial pin states
-                    UpdatePinState();
-                    chkDTR.Checked = serialPortLAB_MANAGER.DtrEnable;
-                    chkRTS.Checked = serialPortLAB_MANAGER.RtsEnable;
-                }*/
-                    else
-                    {
-                        txt_S = "";
-                        but_OpenPort.Text = "Close port";
-                        //textBox_sttCOM.SelectionAlignment = HorizontalAlignment.Center;
-                        textBox_sttCOM.Text = "COMPort is Opened!";
-                        cmB_COMport.Enabled = false;
-                        cmB_Baud.Enabled = false;
-                        cmB_Parity.Enabled = false;
-                        //Console.WriteLine("COMport is opened ...");
-                        but_OpenPort.BackColor = System.Drawing.Color.AntiqueWhite;
-                    }
-                }
+            string response = null;
+            bool exist = false;
+            int sttcode = 0;
+            services.Local.openCOMport(ref settings,ref cmB_COMport, ref cmB_Baud, ref cmB_Parity,
+                                       ref cmbDataBits, ref cmbStopBits,
+                                       ref serialPortRFID, ref textBox_RFID, 
+                                       ref errorCOM, ref errorCONN, 
+                                       ref response, but_OpenPort,
+                                       ref txt_S, ref sttcode, ref exist);
+            textBox_sttCOM.Text = response;
+            switch (sttcode)
+            { 
+                case 1 :                // bi loi mat ket noi COM khi khong con port hien co
+                    MessageBox.Show(this, "Vui lòng gắn thiết bị!", "LỖI THIẾT BỊ", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    break;
+                case 2 :                // bi loi trung COM
+                    MessageBox.Show(this, "Không thể mở cổng COM đã chọn khi bị chiếm giữ bởi thiết bị khác!", "LỖI KẾT NỐI", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case 3 :                // bi loi chua chon du cac thong tin cai dat cho COM
+                    MessageBox.Show(this, "Vui lòng thiết lập các thông số còn thiếu", "THIẾU THÔNG SỐ", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    break;
+                case 4:                // bi loi mat ket noi COM
+                    MessageBox.Show(this, "Không thể mở cổng COM vì mất kết nối với thiết bị", "LỖI KẾT NỐI", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    break;
+                case 5 :                // bi loi khac
+                    MessageBox.Show(this, "Không thể mở cổng COM. \n Có thể cổng COM bị chiếm giữ, hoặc được gỡ bỏ, hoặc chưa sẵn sàng.", "LỖI KHÔNG THỂ XÁC ĐỊNH", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    break;
+                default :
+                    break;
             }
         }
 
@@ -571,7 +445,7 @@ namespace CSELABMAN.CONTROL
                     services.Local.writeCONF(ref errWriteFile, ref responseWriteFile, datain, localpath, ref responseReadFile);
                     richTextBox_ResCOM.Text = responseWriteFile;
                     richTextBox_Status.Text = responseReadFile;
-                    string timelog = "SerialPort new CONFIGURATION : " + DateTime.Now + "\n";
+                    string timelog = "SerialPort new CONFIGURATION : " + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + "\n";
                     string newlog = timelog + datain + "\n\n";
                     services.Local.writetofiletxt(ref errWriteFile, ref responseWriteFile, newlog, LOGpath);
                     System.Diagnostics.Process.Start(LOGpath);
@@ -608,7 +482,7 @@ namespace CSELABMAN.CONTROL
             }
         }
 
-        private void button_ResetCOM_Click(object sender, EventArgs e)
+        private void button_ScanCOM_Click(object sender, EventArgs e)
         {
             richTextBox_ResCOM.Text = null;
             richTextBox_Status.Text = null;
@@ -622,19 +496,8 @@ namespace CSELABMAN.CONTROL
             but_OpenPort.Text = "Open port";
             services.Local.InitializeControlValues(ref settings, ref cmB_COMport, ref cmB_Baud, ref cmB_Parity,
                                                     ref cmbDataBits, ref cmbStopBits, ref serialPortRFID,
-                                                    ref errorCOM, ref errorCONN, ref resFirst);
+                                                    ref errorCOM, ref errorCONN, ref resFirst, ref exist);
             textBox_sttCOM.Text = resFirst;
-            /*textBox_sttCOM.Text = "No COMport!";
-            cmB_COMport.Items.Clear();
-            cmB_Baud.Items.Clear();
-            cmB_Parity.Items.Clear();
-            cmB_COMport.Items.AddRange(new Object[] { });
-            cmB_Baud.Items.AddRange(new Object[] { });
-            cmB_Parity.Items.AddRange(new Object[] { });
-            but_OpenPort.Text = "Open port";
-            but_OpenPort.BackColor = System.Drawing.Color.AliceBlue;
-            serialPortRFID.Close();
-            errorCOM = true;*/
         }
 
         private void button_LoadCONF_Click(object sender, EventArgs e)
@@ -681,5 +544,13 @@ namespace CSELABMAN.CONTROL
             }
         }
         #endregion Button Clicks
+
+        #region Events
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            label_Realtimestt.Text = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
+        }
+
+        #endregion Events
     }
 }

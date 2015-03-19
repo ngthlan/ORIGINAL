@@ -28,8 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.cmbStopBits = new System.Windows.Forms.ComboBox();
+            this.cmbDataBits = new System.Windows.Forms.ComboBox();
             this.groupBox_infor = new System.Windows.Forms.GroupBox();
-            this.textBox_att = new System.Windows.Forms.TextBox();
+            this.comboBox_Att = new System.Windows.Forms.ComboBox();
             this.label_att = new System.Windows.Forms.Label();
             this.comboBox_Type = new System.Windows.Forms.ComboBox();
             this.but_Find = new System.Windows.Forms.Button();
@@ -41,26 +44,42 @@
             this.but_reset = new System.Windows.Forms.Button();
             this.group_SETTINGS = new System.Windows.Forms.GroupBox();
             this.cmB_Parity = new System.Windows.Forms.ComboBox();
+            this.but_OpenPort = new System.Windows.Forms.Button();
             this.label_Parity = new System.Windows.Forms.Label();
             this.cmB_Baud = new System.Windows.Forms.ComboBox();
             this.label_Baud = new System.Windows.Forms.Label();
             this.cmB_COMport = new System.Windows.Forms.ComboBox();
             this.label_COMport = new System.Windows.Forms.Label();
-            this.but_OpenPort = new System.Windows.Forms.Button();
             this.group_STT = new System.Windows.Forms.GroupBox();
             this.textBox_sttCOM = new System.Windows.Forms.TextBox();
             this.label_sttServer = new System.Windows.Forms.Label();
             this.richtex_sttServer = new System.Windows.Forms.RichTextBox();
             this.label_sttCOM = new System.Windows.Forms.Label();
             this.but_Regis = new System.Windows.Forms.Button();
+            this.serialPortRFID = new System.IO.Ports.SerialPort(this.components);
+            this.button_ScanCOM = new System.Windows.Forms.Button();
             this.groupBox_infor.SuspendLayout();
             this.group_SETTINGS.SuspendLayout();
             this.group_STT.SuspendLayout();
             this.SuspendLayout();
             // 
+            // cmbStopBits
+            // 
+            this.cmbStopBits.Location = new System.Drawing.Point(0, 0);
+            this.cmbStopBits.Name = "cmbStopBits";
+            this.cmbStopBits.Size = new System.Drawing.Size(121, 21);
+            this.cmbStopBits.TabIndex = 0;
+            // 
+            // cmbDataBits
+            // 
+            this.cmbDataBits.Location = new System.Drawing.Point(0, 0);
+            this.cmbDataBits.Name = "cmbDataBits";
+            this.cmbDataBits.Size = new System.Drawing.Size(121, 21);
+            this.cmbDataBits.TabIndex = 0;
+            // 
             // groupBox_infor
             // 
-            this.groupBox_infor.Controls.Add(this.textBox_att);
+            this.groupBox_infor.Controls.Add(this.comboBox_Att);
             this.groupBox_infor.Controls.Add(this.label_att);
             this.groupBox_infor.Controls.Add(this.comboBox_Type);
             this.groupBox_infor.Controls.Add(this.but_Find);
@@ -71,22 +90,24 @@
             this.groupBox_infor.Controls.Add(this.label_RFID);
             this.groupBox_infor.Location = new System.Drawing.Point(12, 12);
             this.groupBox_infor.Name = "groupBox_infor";
-            this.groupBox_infor.Size = new System.Drawing.Size(198, 157);
+            this.groupBox_infor.Size = new System.Drawing.Size(198, 180);
             this.groupBox_infor.TabIndex = 26;
             this.groupBox_infor.TabStop = false;
             this.groupBox_infor.Text = "THÔNG TIN THIẾT BỊ";
             // 
-            // textBox_att
+            // comboBox_Att
             // 
-            this.textBox_att.Location = new System.Drawing.Point(95, 50);
-            this.textBox_att.Name = "textBox_att";
-            this.textBox_att.Size = new System.Drawing.Size(82, 20);
-            this.textBox_att.TabIndex = 43;
+            this.comboBox_Att.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_Att.FormattingEnabled = true;
+            this.comboBox_Att.Location = new System.Drawing.Point(85, 55);
+            this.comboBox_Att.Name = "comboBox_Att";
+            this.comboBox_Att.Size = new System.Drawing.Size(92, 21);
+            this.comboBox_Att.TabIndex = 43;
             // 
             // label_att
             // 
             this.label_att.AutoSize = true;
-            this.label_att.Location = new System.Drawing.Point(8, 53);
+            this.label_att.Location = new System.Drawing.Point(8, 59);
             this.label_att.Name = "label_att";
             this.label_att.Size = new System.Drawing.Size(46, 13);
             this.label_att.TabIndex = 42;
@@ -103,7 +124,7 @@
             // 
             // but_Find
             // 
-            this.but_Find.Location = new System.Drawing.Point(85, 76);
+            this.but_Find.Location = new System.Drawing.Point(85, 85);
             this.but_Find.Name = "but_Find";
             this.but_Find.Size = new System.Drawing.Size(92, 22);
             this.but_Find.TabIndex = 40;
@@ -113,9 +134,9 @@
             // 
             // textBox_RFID
             // 
-            this.textBox_RFID.Location = new System.Drawing.Point(95, 131);
+            this.textBox_RFID.Location = new System.Drawing.Point(85, 146);
             this.textBox_RFID.Name = "textBox_RFID";
-            this.textBox_RFID.Size = new System.Drawing.Size(82, 20);
+            this.textBox_RFID.Size = new System.Drawing.Size(92, 20);
             this.textBox_RFID.TabIndex = 39;
             // 
             // label1
@@ -129,15 +150,15 @@
             // 
             // textBox_UserName
             // 
-            this.textBox_UserName.Location = new System.Drawing.Point(95, 104);
+            this.textBox_UserName.Location = new System.Drawing.Point(85, 116);
             this.textBox_UserName.Name = "textBox_UserName";
-            this.textBox_UserName.Size = new System.Drawing.Size(82, 20);
+            this.textBox_UserName.Size = new System.Drawing.Size(92, 20);
             this.textBox_UserName.TabIndex = 23;
             // 
             // label_DEVName
             // 
             this.label_DEVName.AutoSize = true;
-            this.label_DEVName.Location = new System.Drawing.Point(9, 107);
+            this.label_DEVName.Location = new System.Drawing.Point(9, 119);
             this.label_DEVName.Name = "label_DEVName";
             this.label_DEVName.Size = new System.Drawing.Size(60, 13);
             this.label_DEVName.TabIndex = 4;
@@ -147,7 +168,7 @@
             // label_RFID
             // 
             this.label_RFID.AutoSize = true;
-            this.label_RFID.Location = new System.Drawing.Point(9, 134);
+            this.label_RFID.Location = new System.Drawing.Point(9, 149);
             this.label_RFID.Name = "label_RFID";
             this.label_RFID.Size = new System.Drawing.Size(56, 13);
             this.label_RFID.TabIndex = 6;
@@ -155,9 +176,9 @@
             // 
             // but_reset
             // 
-            this.but_reset.Location = new System.Drawing.Point(66, 181);
+            this.but_reset.Location = new System.Drawing.Point(23, 209);
             this.but_reset.Name = "but_reset";
-            this.but_reset.Size = new System.Drawing.Size(95, 22);
+            this.but_reset.Size = new System.Drawing.Size(78, 22);
             this.but_reset.TabIndex = 16;
             this.but_reset.Text = "Xóa thông tin";
             this.but_reset.UseVisualStyleBackColor = true;
@@ -165,7 +186,9 @@
             // 
             // group_SETTINGS
             // 
+            this.group_SETTINGS.Controls.Add(this.button_ScanCOM);
             this.group_SETTINGS.Controls.Add(this.cmB_Parity);
+            this.group_SETTINGS.Controls.Add(this.but_OpenPort);
             this.group_SETTINGS.Controls.Add(this.label_Parity);
             this.group_SETTINGS.Controls.Add(this.cmB_Baud);
             this.group_SETTINGS.Controls.Add(this.label_Baud);
@@ -173,7 +196,7 @@
             this.group_SETTINGS.Controls.Add(this.label_COMport);
             this.group_SETTINGS.Location = new System.Drawing.Point(216, 12);
             this.group_SETTINGS.Name = "group_SETTINGS";
-            this.group_SETTINGS.Size = new System.Drawing.Size(198, 104);
+            this.group_SETTINGS.Size = new System.Drawing.Size(198, 124);
             this.group_SETTINGS.TabIndex = 33;
             this.group_SETTINGS.TabStop = false;
             this.group_SETTINGS.Text = "THIẾT LẬP CỔNG COM";
@@ -186,6 +209,16 @@
             this.cmB_Parity.Name = "cmB_Parity";
             this.cmB_Parity.Size = new System.Drawing.Size(92, 21);
             this.cmB_Parity.TabIndex = 3;
+            // 
+            // but_OpenPort
+            // 
+            this.but_OpenPort.Location = new System.Drawing.Point(106, 98);
+            this.but_OpenPort.Name = "but_OpenPort";
+            this.but_OpenPort.Size = new System.Drawing.Size(71, 22);
+            this.but_OpenPort.TabIndex = 25;
+            this.but_OpenPort.Text = "Open Port";
+            this.but_OpenPort.UseVisualStyleBackColor = true;
+            this.but_OpenPort.Click += new System.EventHandler(this.but_OpenPort_Click);
             // 
             // label_Parity
             // 
@@ -243,25 +276,15 @@
             this.label_COMport.TabIndex = 1;
             this.label_COMport.Text = "COMport";
             // 
-            // but_OpenPort
-            // 
-            this.but_OpenPort.Location = new System.Drawing.Point(24, 209);
-            this.but_OpenPort.Name = "but_OpenPort";
-            this.but_OpenPort.Size = new System.Drawing.Size(71, 22);
-            this.but_OpenPort.TabIndex = 25;
-            this.but_OpenPort.Text = "Open Port";
-            this.but_OpenPort.UseVisualStyleBackColor = true;
-            this.but_OpenPort.Click += new System.EventHandler(this.but_OpenPort_Click);
-            // 
             // group_STT
             // 
             this.group_STT.Controls.Add(this.textBox_sttCOM);
             this.group_STT.Controls.Add(this.label_sttServer);
             this.group_STT.Controls.Add(this.richtex_sttServer);
             this.group_STT.Controls.Add(this.label_sttCOM);
-            this.group_STT.Location = new System.Drawing.Point(216, 122);
+            this.group_STT.Location = new System.Drawing.Point(216, 143);
             this.group_STT.Name = "group_STT";
-            this.group_STT.Size = new System.Drawing.Size(197, 119);
+            this.group_STT.Size = new System.Drawing.Size(200, 119);
             this.group_STT.TabIndex = 35;
             this.group_STT.TabStop = false;
             this.group_STT.Text = "TRẠNG THÁI PHẢN HỒI";
@@ -311,19 +334,34 @@
             this.but_Regis.UseVisualStyleBackColor = true;
             this.but_Regis.Click += new System.EventHandler(this.but_Regis_Click);
             // 
+            // serialPortRFID
+            // 
+            this.serialPortRFID.PortName = "COM4";
+            this.serialPortRFID.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPortRFID_DataReceived);
+            // 
+            // button_ScanCOM
+            // 
+            this.button_ScanCOM.Location = new System.Drawing.Point(25, 98);
+            this.button_ScanCOM.Name = "button_ScanCOM";
+            this.button_ScanCOM.Size = new System.Drawing.Size(58, 22);
+            this.button_ScanCOM.TabIndex = 56;
+            this.button_ScanCOM.Text = "Scan";
+            this.button_ScanCOM.UseVisualStyleBackColor = true;
+            this.button_ScanCOM.Click += new System.EventHandler(this.button_ScanCOM_Click);
+            // 
             // DEVREGISLIT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(428, 252);
+            this.ClientSize = new System.Drawing.Size(428, 275);
             this.Controls.Add(this.group_STT);
-            this.Controls.Add(this.but_OpenPort);
             this.Controls.Add(this.but_reset);
             this.Controls.Add(this.but_Regis);
             this.Controls.Add(this.group_SETTINGS);
             this.Controls.Add(this.groupBox_infor);
             this.Name = "DEVREGISLIT";
             this.Text = "ĐĂNG KÝ THẺ THIẾT BỊ";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DEVREGISLIT_FormClosing);
             this.groupBox_infor.ResumeLayout(false);
             this.groupBox_infor.PerformLayout();
             this.group_SETTINGS.ResumeLayout(false);
@@ -336,6 +374,8 @@
 
         #endregion
 
+        private System.Windows.Forms.ComboBox cmbStopBits;
+        private System.Windows.Forms.ComboBox cmbDataBits;
         private System.Windows.Forms.GroupBox groupBox_infor;
         private System.Windows.Forms.TextBox textBox_UserName;
         private System.Windows.Forms.Button but_reset;
@@ -359,7 +399,9 @@
         private System.Windows.Forms.TextBox textBox_RFID;
         private System.Windows.Forms.Button but_Find;
         private System.Windows.Forms.ComboBox comboBox_Type;
-        private System.Windows.Forms.TextBox textBox_att;
         private System.Windows.Forms.Label label_att;
+        private System.Windows.Forms.ComboBox comboBox_Att;
+        private System.IO.Ports.SerialPort serialPortRFID;
+        private System.Windows.Forms.Button button_ScanCOM;
     }
 }
